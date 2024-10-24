@@ -23,6 +23,8 @@
 
 use Cake\Routing\Route\DashedRoute;
 use Cake\Routing\RouteBuilder;
+use Cake\Routing\Router;
+
 
 /*
  * This file is loaded in the context of the `Application` class.
@@ -48,6 +50,24 @@ return function (RouteBuilder $routes): void {
      * `{action}` markers.
      */
     $routes->setRouteClass(DashedRoute::class);
+    
+    // Admin Routing
+    Router::prefix('admin', function ($routes) {
+        $routes->connect('/', ['controller' => 'Users', 'action' => 'dashboard']);
+        $routes->fallbacks('DashedRoute');
+    });
+
+    // Subscribers Routing
+    Router::prefix('subscribers', function ($routes) {
+        $routes->connect('/', ['controller' => 'Users', 'action' => 'dashboard']);
+        $routes->fallbacks('DashedRoute');
+    });
+
+    // Api Routing
+    Router::prefix('api', function ($routes) {
+        $routes->connect('/', ['controller' => 'Users', 'action' => 'dashboard']);
+        $routes->fallbacks('DashedRoute');
+    });
 
     $routes->scope('/', function (RouteBuilder $builder): void {
         /*
