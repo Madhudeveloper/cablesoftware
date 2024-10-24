@@ -11,6 +11,18 @@ use Cake\Validation\Validator;
 /**
  * Users Model
  *
+ * @property \App\Model\Table\CompaniesTable&\Cake\ORM\Association\BelongsTo $Companies
+ * @property \App\Model\Table\UserRolesTable&\Cake\ORM\Association\BelongsTo $UserRoles
+ * @property \App\Model\Table\AdditionalChannelsTable&\Cake\ORM\Association\HasMany $AdditionalChannels
+ * @property \App\Model\Table\CitiesTable&\Cake\ORM\Association\HasMany $Cities
+ * @property \App\Model\Table\CommonSettingTable&\Cake\ORM\Association\HasMany $CommonSetting
+ * @property \App\Model\Table\CustomersTable&\Cake\ORM\Association\HasMany $Customers
+ * @property \App\Model\Table\EmployeesTable&\Cake\ORM\Association\HasMany $Employees
+ * @property \App\Model\Table\LogsHistoryTable&\Cake\ORM\Association\HasMany $LogsHistory
+ * @property \App\Model\Table\PackagesTable&\Cake\ORM\Association\HasMany $Packages
+ * @property \App\Model\Table\StatesTable&\Cake\ORM\Association\HasMany $States
+ * @property \App\Model\Table\UserDetailsTable&\Cake\ORM\Association\HasMany $UserDetails
+ *
  * @method \App\Model\Entity\User newEmptyEntity()
  * @method \App\Model\Entity\User newEntity(array $data, array $options = [])
  * @method \App\Model\Entity\User[] newEntities(array $data, array $options = [])
@@ -41,9 +53,45 @@ class UsersTable extends Table
 
         $this->setTable('users');
         $this->setDisplayField('name');
-        $this->setPrimaryKey('user_id');
+        $this->setPrimaryKey('id');
 
         $this->addBehavior('Timestamp');
+
+        $this->belongsTo('Companies', [
+            'foreignKey' => 'company_id',
+            'joinType' => 'INNER',
+        ]);
+        $this->belongsTo('UserRoles', [
+            'foreignKey' => 'user_role_id',
+            'joinType' => 'INNER',
+        ]);
+        $this->hasMany('AdditionalChannels', [
+            'foreignKey' => 'user_id',
+        ]);
+        $this->hasMany('Cities', [
+            'foreignKey' => 'user_id',
+        ]);
+        $this->hasMany('CommonSetting', [
+            'foreignKey' => 'user_id',
+        ]);
+        $this->hasMany('Customers', [
+            'foreignKey' => 'user_id',
+        ]);
+        $this->hasMany('Employees', [
+            'foreignKey' => 'user_id',
+        ]);
+        $this->hasMany('LogsHistory', [
+            'foreignKey' => 'user_id',
+        ]);
+        $this->hasMany('Packages', [
+            'foreignKey' => 'user_id',
+        ]);
+        $this->hasMany('States', [
+            'foreignKey' => 'user_id',
+        ]);
+        $this->hasMany('UserDetails', [
+            'foreignKey' => 'user_id',
+        ]);
     }
 
     /**
@@ -57,13 +105,11 @@ class UsersTable extends Table
         $validator
             ->scalar('company_id')
             ->maxLength('company_id', 11)
-            ->requirePresence('company_id', 'create')
             ->notEmptyString('company_id');
 
         $validator
-            ->integer('role_id')
-            ->requirePresence('role_id', 'create')
-            ->notEmptyString('role_id');
+            ->integer('user_role_id')
+            ->notEmptyString('user_role_id');
 
         $validator
             ->scalar('name')
@@ -82,6 +128,12 @@ class UsersTable extends Table
             ->maxLength('mobile', 255)
             ->requirePresence('mobile', 'create')
             ->notEmptyString('mobile');
+
+        $validator
+            ->scalar('username')
+            ->maxLength('username', 255)
+            ->requirePresence('username', 'create')
+            ->notEmptyString('username');
 
         $validator
             ->scalar('password')
@@ -115,6 +167,9 @@ class UsersTable extends Table
     public function buildRules(RulesChecker $rules): RulesChecker
     {
         $rules->add($rules->isUnique(['email']), ['errorField' => 'email']);
+        $rules->add($rules->isUnique(['username']), ['errorField' => 'username']);
+        $rules->add($rules->existsIn('company_id', 'Companies'), ['errorField' => 'company_id']);
+        $rules->add($rules->existsIn('user_role_id', 'UserRoles'), ['errorField' => 'user_role_id']);
 
         return $rules;
     }

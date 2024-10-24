@@ -85,24 +85,26 @@ class Application extends BaseApplication
             ]))
 
             // Add routing middleware.
-            // If you have a large number of routes connected, turning on routes
-            // caching in production could improve performance.
-            // See https://github.com/CakeDC/cakephp-cached-routing
             ->add(new RoutingMiddleware($this))
 
             // Parse various types of encoded request bodies so that they are
             // available as array through $request->getData()
-            // https://book.cakephp.org/4/en/controllers/middleware.html#body-parser-middleware
-            ->add(new BodyParserMiddleware())
+            ->add(new BodyParserMiddleware());
 
-            // Cross Site Request Forgery (CSRF) Protection Middleware
-            // https://book.cakephp.org/4/en/security/csrf.html#cross-site-request-forgery-csrf-middleware
-            ->add(new CsrfProtectionMiddleware([
-                'httponly' => true,
-            ]));
+        // Create an instance of CsrfProtectionMiddleware
+        // $csrf = new CsrfProtectionMiddleware([
+        //     'httpOnly' => true,
+        // ]);
+
+        // Add CSRF Middleware and set up skipCheckCallback for API routes
+        // $middlewareQueue->add($csrf->skipCheckCallback(function ($request) {
+        //     // Disable CSRF for API routes (assuming API routes are prefixed with 'api')
+        //     return $request->getParam('prefix') === 'api';
+        // }));
 
         return $middlewareQueue;
     }
+
 
     /**
      * Register application container services.
