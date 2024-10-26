@@ -33,9 +33,11 @@
     <!-- Plugins css Ends-->
     <!-- Bootstrap css-->
     <link rel="stylesheet" type="text/css" href="<?php echo $this->Url->build('/assets/css/vendors/bootstrap.css'); ?>">
+    <link rel="stylesheet" type="text/css" href="<?php echo $this->Url->build('assets/css/vendors/sweetalert2.css'); ?>">
     <!-- App css-->
     <link rel="stylesheet" type="text/css" href="<?php echo $this->Url->build('/assets/css/style.css'); ?>">
     <link id="color" rel="stylesheet" href="<?php echo $this->Url->build('/assets/css/color-1.css'); ?>" media="screen">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/toastify-js@1.12.0/src/toastify.min.css">
     <!-- Responsive css-->
     <link rel="stylesheet" type="text/css" href="<?php echo $this->Url->build('/assets/css/responsive.css'); ?>">
   </head>

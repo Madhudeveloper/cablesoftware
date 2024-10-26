@@ -3,13 +3,21 @@
 namespace App\Controller\Admin;
 
 use App\Controller\Admin\AppController;
+use Cake\Event\Event;
 
 class UsersController extends AppController
 {   
+    public function initialize(): void {
+        parent::initialize();
+    
+        $this->Auth->allow(['login', 'logout']);
+        $this->viewBuilder()->setLayout('design');
+    }
+
     // Dashboard
     public function dashboard()
     {
-        $this->viewBuilder()->setLayout('design');
+        
     }
 
     // Login 
@@ -23,7 +31,6 @@ class UsersController extends AppController
             if($user) {
                 $combinedata = $this->Users->find('all')->contain(['Companies' => ['UserDetails', 'Customers']])->where(['Users.id' => $user['id']])->first();
                 $user['combinedata'] = $combinedata;
-                
                 if($user['user_role_id'] == 1){
                     $this->Auth->setUser($user);
                     $this->Flash->success(__('Logged in successfully'));

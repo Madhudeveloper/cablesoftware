@@ -20,7 +20,7 @@ class AppController extends Controller
             'authorize' => ['Controller'],
             'authenticate' => [
                 'Form' => [
-                    'fields' => ['username' => 'email', 'password' => 'password'], 
+                    'fields' => ['username' => 'username', 'password' => 'password'], 
                 ]
             ],
             'authError' => 'Access Denied! Authorization Failed.',
