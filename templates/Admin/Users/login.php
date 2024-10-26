@@ -7,21 +7,21 @@
         <div class="login-main"> 
         <?php echo $this->Form->create(null, ['id' => 'loginForm', 'url' => ['controller' => 'Users', 'action' => 'login']]); ?>
           <h4>Sign in to account</h4>
-          <p>Enter your email & password to login</p>
+          <p>Enter your username & password to login</p>
           <?php echo $this->Flash->render(); ?>
           <div class="form-group">
-              <label class="col-form-label">Email Address</label>
-              <?php echo $this->Form->control('email', [
-                  'type' => 'email',
-                  'placeholder' => 'Enter your email address',
+              <label class="col-form-label">Username <span class="text-danger">*</span></label>
+              <?php echo $this->Form->control('username', [
+                  'type' => 'text',
+                  'placeholder' => 'Enter your username',
                   'class' => 'form-control',
-                  'name' => 'email',
+                  'name' => 'username',
                   'label' => false,
                   'required' => true
               ]); ?>
           </div>
           <div class="form-group">
-              <label class="col-form-label">Password</label>
+              <label class="col-form-label">Password <span class="text-danger">*</span></label>
               <div class="form-input position-relative">
                   <?php echo $this->Form->control('password', [
                       'type' => 'password',
@@ -34,11 +34,7 @@
               </div>
           </div>
           <div class="form-group mb-0">
-              <div class="checkbox p-0">
-                  <?php echo $this->Form->checkbox('remember_me', ['id' => 'checkbox1']); ?>
-                  <label class="text-muted" for="checkbox1">Remember password</label>
-              </div>
-              <?php echo $this->Form->button('Sign in', ['class' => 'btn btn-primary btn-block w-100']); ?>
+              <?php echo $this->Form->button('Sign in', ['class' => 'btn btn-primary btn-block w-100 mt-4']); ?>
           </div>
           <?php echo $this->Form->end(); ?>
       </div>

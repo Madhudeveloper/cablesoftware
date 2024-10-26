@@ -36,6 +36,7 @@
     <script src="<?php echo $this->Url->build('/assets/js/chart/apex-chart/stock-prices.js'); ?>"></script>
     <script src="<?php echo $this->Url->build('/assets/js/chart/apex-chart/moment.min.js'); ?>"></script>
     <script src="<?php echo $this->Url->build('/assets/js/notify/bootstrap-notify.min.js'); ?>"></script>
+    <script src="<?php echo $this->Url->build('assets/js/notify/custom-notify.js'); ?>"></script>
     <!-- calendar js-->
     <script src="<?php echo $this->Url->build('/assets/js/dashboard/default.js'); ?>"></script>
     <script src="<?php echo $this->Url->build('/assets/js/notify/index.js'); ?>"></script>
@@ -51,6 +52,8 @@
     <script src="<?php echo $this->Url->build('/assets/js/typeahead-search/typeahead-custom.js'); ?>"></script>
     <script src="<?php echo $this->Url->build('/assets/js/height-equal.js'); ?>"></script>
     <script src="<?php echo $this->Url->build('/assets/js/animation/wow/wow.min.js'); ?>"></script>
+    <script src="<?php echo $this->Url->build('assets/js/sweet-alert/sweetalert.min.js'); ?>"></script>
+    <script src="<?php echo $this->Url->build('assets/js/sweet-alert/app.js'); ?>"></script>
     <!-- Plugins JS Ends-->
     <!-- Theme js-->
     <script src="<?php echo $this->Url->build('/assets/js/script.js'); ?>"></script>

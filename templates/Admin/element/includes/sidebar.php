@@ -2,7 +2,7 @@
   <div class="left-arrow" id="left-arrow"><i data-feather="arrow-left"></i></div>
   <div id="sidebar-menu">
     <ul class="sidebar-links" id="simple-bar">
-      <li class="back-btn"><a href="index.html"><img class="img-fluid" src="<?php echo $this->Url->build('/assets/images/logo/logo-icon.png'); ?>" alt=""></a>
+      <li class="back-btn"><a href="<?php echo $this->Url->build('admin/users/dashboard') ?>"><img class="img-fluid" src="<?php echo $this->Url->build('/assets/images/logo/logo-icon.png'); ?>" alt=""></a>
         <div class="mobile-back text-end"><span>Back</span></div>
       </li>
       <li class="sidebar-list"><i class="fa fa-thumb-tack"></i><a class="sidebar-link sidebar-title" href="javascript:void(0)">
@@ -11,7 +11,7 @@
           </svg>
           <svg class="fill-icon">
             <use href="<?php echo $this->Url->build('/assets/svg/icon-sprite.svg#fill-home'); ?>"></use>
-          </svg><span class="lan-3">Dashboard</span></a>
+          </svg><span>Dashboard</span></a>
       </li>
       <li class="sidebar-list"><i class="fa fa-thumb-tack"></i><a class="sidebar-link sidebar-title" href="javascript:void(0)">
           <svg class="stroke-icon">
@@ -19,10 +19,12 @@
           </svg>
           <svg class="fill-icon">
             <use href="<?php echo $this->Url->build('/assets/svg/icon-sprite.svg#fill-widget'); ?>"></use>
-          </svg><span class="lan-6">Widgets</span></a>
+          </svg><span>Master Managements</span></a>
         <ul class="sidebar-submenu">
-          <li><a href="general-widget.html">General</a></li>
-          <li><a href="chart-widget.html">Chart</a></li>
+          <li><a href="<?php echo $this->Url->build('/admin/mainareas') ?>">Area</a></li>
+          <li><a href="chart-widget.html">Subarea</a></li>
+          <li><a href="chart-widget.html">Packages</a></li>
+          <li><a href="chart-widget.html">Alacarte Channels</a></li>
         </ul>
       </li>
      <!--  <li class="sidebar-list"><i class="fa fa-thumb-tack"></i><a class="sidebar-link sidebar-title" href="javascript:void(0)">

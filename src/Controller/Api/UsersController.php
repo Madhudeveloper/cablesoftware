@@ -13,46 +13,65 @@ class UsersController extends AppController
     {
         echo "api"; die;
         // $this->viewBuilder()->setLayout('design');
-
     }
 
     // Login 
     public function login()
     {
+        $this->setCorsHeaders();
+
+        if ($this->request->is('options')) {
+            return $this->response;
+        }
+
         $this->viewBuilder()->setLayout('login_design');
-        $redirect = isset($_GET['redirect']) ? $_GET['redirect'] : '';
+        $redirect = $this->request->getQuery('redirect', '');
 
         if ($this->request->is('post')) {
             $user = $this->Auth->identify();
+
             if ($user) {
-                $combinedata = $this->Users->find('all')->contain(['Companies' => ['UserDetails', 'Customers']])->where(['Users.id' => $user['id']])->first();
-                $user['combinedata'] = $combinedata;
+                $combinedata = $this->Users->find('all')
+                    ->contain(['Companies' => ['UserDetails', 'Customers']])
+                    ->where(['Users.id' => $user['id']])
+                    ->first();
+
+                $user['subscriberdata'] = $combinedata;
+
                 if ($user['user_role_id'] == 1) {
                     $this->Auth->setUser($user);
-                    $message = 'Logged in successfully';
-                    $status = 1;
-                    $responseData = $user;
+                    return $this->sendJsonResponse(1, 'Logged in successfully', $user);
                 } else {
-                    $message = 'Oops! It looks like you\'re not authorized to access this area.';
-                    $status = 0;
-                    $responseData = [];
-                    $this->Auth->logout(); 
+                    $this->Auth->logout();
+                    return $this->sendJsonResponse(0, 'Oops! It looks like you\'re not authorized to access this area.', []);
                 }
             } else {
-                $message = 'Invalid User Name and Password';
-                $status = 0;
-                $responseData = [];
+                return $this->sendJsonResponse(0, 'Invalid User Name and Password', []);
             }
-
-            $response = [
-                'status' => $status,
-                'message' => $message,
-                'data' => $responseData,
-            ];
-            echo json_encode($response);
-            return; 
         }
     }
+
+    private function setCorsHeaders()
+    {
+        $this->response = $this->response
+            ->withHeader('Access-Control-Allow-Origin', '*') 
+            ->withHeader('Access-Control-Allow-Methods', 'POST, GET, OPTIONS') 
+            ->withHeader('Access-Control-Allow-Headers', 'X-Requested-With, Content-Type, Authorization') 
+            ->withHeader('Access-Control-Allow-Credentials', 'true'); 
+    }
+
+    private function sendJsonResponse($status, $message, $data)
+    {
+        $response = [
+            'status' => $status,
+            'message' => $message,
+            'data' => $data,
+        ];
+
+        echo json_encode($response, JSON_PRETTY_PRINT);
+        exit;
+    }
+
 
 
 

@@ -8,37 +8,7 @@ use Cake\ORM\RulesChecker;
 use Cake\ORM\Table;
 use Cake\Validation\Validator;
 
-/**
- * Users Model
- *
- * @property \App\Model\Table\CompaniesTable&\Cake\ORM\Association\BelongsTo $Companies
- * @property \App\Model\Table\UserRolesTable&\Cake\ORM\Association\BelongsTo $UserRoles
- * @property \App\Model\Table\AdditionalChannelsTable&\Cake\ORM\Association\HasMany $AdditionalChannels
- * @property \App\Model\Table\CitiesTable&\Cake\ORM\Association\HasMany $Cities
- * @property \App\Model\Table\CommonSettingTable&\Cake\ORM\Association\HasMany $CommonSetting
- * @property \App\Model\Table\CustomersTable&\Cake\ORM\Association\HasMany $Customers
- * @property \App\Model\Table\EmployeesTable&\Cake\ORM\Association\HasMany $Employees
- * @property \App\Model\Table\LogsHistoryTable&\Cake\ORM\Association\HasMany $LogsHistory
- * @property \App\Model\Table\PackagesTable&\Cake\ORM\Association\HasMany $Packages
- * @property \App\Model\Table\StatesTable&\Cake\ORM\Association\HasMany $States
- * @property \App\Model\Table\UserDetailsTable&\Cake\ORM\Association\HasMany $UserDetails
- *
- * @method \App\Model\Entity\User newEmptyEntity()
- * @method \App\Model\Entity\User newEntity(array $data, array $options = [])
- * @method \App\Model\Entity\User[] newEntities(array $data, array $options = [])
- * @method \App\Model\Entity\User get($primaryKey, $options = [])
- * @method \App\Model\Entity\User findOrCreate($search, ?callable $callback = null, $options = [])
- * @method \App\Model\Entity\User patchEntity(\Cake\Datasource\EntityInterface $entity, array $data, array $options = [])
- * @method \App\Model\Entity\User[] patchEntities(iterable $entities, array $data, array $options = [])
- * @method \App\Model\Entity\User|false save(\Cake\Datasource\EntityInterface $entity, $options = [])
- * @method \App\Model\Entity\User saveOrFail(\Cake\Datasource\EntityInterface $entity, $options = [])
- * @method \App\Model\Entity\User[]|\Cake\Datasource\ResultSetInterface|false saveMany(iterable $entities, $options = [])
- * @method \App\Model\Entity\User[]|\Cake\Datasource\ResultSetInterface saveManyOrFail(iterable $entities, $options = [])
- * @method \App\Model\Entity\User[]|\Cake\Datasource\ResultSetInterface|false deleteMany(iterable $entities, $options = [])
- * @method \App\Model\Entity\User[]|\Cake\Datasource\ResultSetInterface deleteManyOrFail(iterable $entities, $options = [])
- *
- * @mixin \Cake\ORM\Behavior\TimestampBehavior
- */
+
 class UsersTable extends Table
 {
     /**
@@ -172,5 +142,18 @@ class UsersTable extends Table
         $rules->add($rules->existsIn('user_role_id', 'UserRoles'), ['errorField' => 'user_role_id']);
 
         return $rules;
+    }
+    
+    // Form Validation
+    public function validationPassword(Validator $validator )
+    {
+        $validator
+            ->add('username', 'validFormat', [
+                'rule' => 'email',
+                'message' => 'Please enter a valid email address',
+            ])
+            ->notEmptyString('password', 'Password is required');
+            
+        return $validator;
     }
 }

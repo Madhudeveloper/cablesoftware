@@ -7,15 +7,15 @@
         <div class="login-main"> 
         <?php echo $this->Form->create(null, ['id' => 'loginForm', 'url' => ['controller' => 'Users', 'action' => 'login']]); ?>
           <h4>Sign in to account</h4>
-          <p>Enter your email & password to login</p>
+          <p>Enter your username & password to login</p>
           <?php echo $this->Flash->render(); ?>
           <div class="form-group">
-              <label class="col-form-label">Email Address</label>
-              <?php echo $this->Form->control('email', [
-                  'type' => 'email',
-                  'placeholder' => 'Enter your email address',
+              <label class="col-form-label">Username</label>
+              <?php echo $this->Form->control('username', [
+                  'type' => 'text',
+                  'placeholder' => 'Enter your username',
                   'class' => 'form-control',
-                  'name' => 'email',
+                  'name' => 'username',
                   'label' => false,
                   'required' => true
               ]); ?>
